@@ -4,15 +4,13 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 class MapContainer extends Component {
 	
   render() {
-
-  	const styles = {
-			width: '100%',
-			height: '100%'
+const styles = {
+			width: '70%',
+			height: '80%'
 		};
 
   	return (
-  		<Map
-				google={this.props.google}
+  		<Map google={this.props.google}
 				zoom={15}
 				style={styles}
 				initialCenter={{

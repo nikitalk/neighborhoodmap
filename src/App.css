@@ -1,9 +1,49 @@
-.App {
-  text-align: center;
+
+body {
+    background-color: #fdfdfd;
+    margin: 0;
+      overflow: hidden;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+
+.container {
+    background-color: #f3f3f3;
+    height: 100vh;
+    display: grid;
+    grid-gap: 0px;
+    grid-template-columns: auto;
+    grid-template-rows: 10vh auto 5vh;
+    grid-template-areas: "header" "main" "footer";
+
+    overflow: hidden;
 }
 
+.main {
+	display: grid;
+	grid-area: main;
+	grid-template-columns: 30% 70%;
+        grid-template-rows: 100%;
+        grid-template-areas: "list map";
+    height: 100%;
+}
+
+.list {
+		grid-area: list;
+}
+
+.map {
+		grid-area: map;
+		height:100%;
+		display: grid;
+		min-height: 0;  /* NEW */
+  min-width: 0; 
+        overflow: auto;
+}
+
+.header {
+		grid-area: header;
+}
+
+.footer {
+		grid-area: footer;
+}
