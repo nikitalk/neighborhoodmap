@@ -16,10 +16,10 @@ class App extends Component {
         <div className="header">Header</div>
         <div className="main">
              <div className="list">
-          <ListContainer />
+          <ListContainer locationsList={this.state.locations}/>
           </div>
           <div className="map">
-          <MapContainer />
+          <MapContainer locationsList={this.state.locations}/>
           </div>
         </div>
         <div className="footer">Footer</div>

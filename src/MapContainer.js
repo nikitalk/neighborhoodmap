@@ -4,7 +4,9 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 class MapContainer extends Component {
 	
   render() {
-const styles = {
+
+  	 	const { locationsList } = this.props;
+	const styles = {
 			width: '70%',
 			height: '80%'
 		};
@@ -17,7 +19,17 @@ const styles = {
 					lat: 58.603532,
 					lng: 49.666798
 				}}
-			/>     
+			>    
+
+			{locationsList.map(location =>
+				<Marker
+					key={location.title}
+					title={location.title}
+					position={location.position}
+					
+				/>
+			)}
+			</Map>
 	)
   }
 }
