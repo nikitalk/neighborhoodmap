@@ -4,7 +4,7 @@ class ListContainer extends Component {
 
   render() {
 
-  	const { locationsList } = this.props;
+  	const { locationsList, clickedLocation} = this.props;
   	return (
      
         <ul>
