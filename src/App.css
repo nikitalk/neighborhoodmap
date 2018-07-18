@@ -29,7 +29,7 @@ body {
 
 .list {
 		grid-area: list;
-		
+
 }
 
 .map {
@@ -47,4 +47,8 @@ body {
 
 .footer {
 		grid-area: footer;
+}
+
+.marker {
+	cursor: pointer;
 }
