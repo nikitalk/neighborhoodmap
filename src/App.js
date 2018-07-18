@@ -6,7 +6,16 @@ import MapContainer from './MapContainer';
 
 class App extends Component {
   state = {
-    locations: require("./Locations.json")
+    locations: require("./Locations.json"),
+    currentMarker: {}
+  }
+  
+
+
+  locationInListClicked = (marker) => {
+    this.setState({
+      currentMarker: marker
+    });
   }
 
   render() {
@@ -16,10 +25,14 @@ class App extends Component {
         <div className="header">Header</div>
         <div className="main">
              <div className="list">
-          <ListContainer locationsList={this.state.locations}/>
+          <ListContainer locationsList={this.state.locations}
+          locationInListClicked={this.locationInListClicked}
+          />
           </div>
           <div className="map">
-          <MapContainer locationsList={this.state.locations}/>
+          <MapContainer locationsList={this.state.locations}
+          toggleInfoBox={this.toggleInfoBox}
+          currentMarker={this.state.currentMarker}/>
           </div>
         </div>
         <div className="footer">Footer</div>

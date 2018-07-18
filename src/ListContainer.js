@@ -4,7 +4,7 @@ class ListContainer extends Component {
 
   render() {
 
-  	const { locationsList, clickedLocation} = this.props;
+  	const { locationsList, locationInListClicked} = this.props;
   	return (
      
         <ul>
@@ -12,7 +12,8 @@ class ListContainer extends Component {
 				  * LocationsList is provided by <App /> state
 				*/}
 				{locationsList.map(location =>
-					<li key={location.title}>
+					<li key={location.title}
+					onClick={() => locationInListClicked(location)}>
 						{location.title}
 					</li>
 				)}
