@@ -13,7 +13,7 @@ class App extends Component {
 
 
   selectionLocation = (location) => {
-    console.log(this.state.activeLocation);
+   
     this.setState({
       activeLocation: location
     });

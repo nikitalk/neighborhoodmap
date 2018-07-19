@@ -12,7 +12,7 @@ render () {
 	
 	return (
 		<div className="marker">
-		{(activeLocation.title === location.title) && (<Info />)}
+		{(activeLocation.title === location.title) && (<Info location={location} />)}
 		<img src={image} onClick={() => selectionLocation(location)} alt={this.props.key}/>
 		</div>		
 		)

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
-import Info from './Info';
-
 
 class MapContainer extends Component {
 	static defaultProps = {

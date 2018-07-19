@@ -4,7 +4,7 @@ class Info extends Component {
 
 render () {
 	return (
-		<div className="marker">Info</div>		
+		<div className="marker">{this.props.location.title}</div>		
 		)
 }
 }
