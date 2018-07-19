@@ -1,28 +1,24 @@
 import React, { Component } from 'react'
 import escapeRegExp from 'escape-string-regexp'
-import locations from "./Locations";
 
 class ListContainer extends Component {
  state = {
     query: '',
-    showingLocations: locations
+    showingLocations: this.props.locationList
   }
 
   updateQuery = (query) => {
     	
 let Locations;
 if (query) {
-
 			const match = new RegExp(escapeRegExp(query), "i")
-			Locations = locations.filter((location) => match.test(location.title))
-		this.setState({ query : query.trim(), showingLocations: Locations })
-
+			Locations = this.props.locationList.filter((location) => match.test(location.title))
+			this.setState({ query : query, showingLocations: Locations })
 		 } else {
-		 	Locations = locations
+		 	Locations = this.props.locationList
 			 	this.setState({ query : '', showingLocations: Locations })
- 
-		 }
-   					this.props.filteringLocation(Locations)
+ 		 }
+   		this.props.filteringLocation(Locations)
 		   		 
     }
 
@@ -36,8 +32,7 @@ if (query) {
               onChange={(e) => {this.updateQuery(e.target.value)}}
             />
         <ul>
-		
-				{showingLocations.map(location =>
+			{showingLocations.map(location =>
 					<li key={location.title}
 					onClick={() => this.props.selectionLocation(location)}>
 						{location.title}

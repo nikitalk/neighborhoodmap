@@ -4,10 +4,9 @@ class Info extends Component {
 
 render () {
 	return (
-		<div className="marker">{this.props.location.title}</div>		
+		<div id={`fs${this.props.location.idFourSquare}`} className="info">{this.props.location.title}</div>		
 		)
 }
 }
-
 
 export default Info

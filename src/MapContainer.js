@@ -11,24 +11,20 @@ class MapContainer extends Component {
     zoom: 15
   };
 
-
 createMapOptions (maps) {
     return {
       panControl: true,
       mapTypeControl: true,
       scrollwheel: false
-      
     }
   }
 
   render() {
-
-  	 	const { activeLocation, selectionLocation, filteringLocation } = this.props;
-  	 	
-  	 	
+  	 	const { activeLocation, selectionLocation, filteringLocation} = this.props;
+  	 	 	
   	return (
 
-	<div style={{ height: '80vh', width: '100%' }}>
+	<div style={{ height: '100%', width: '100%' }}>
         <GoogleMapReact
         	options={this.createMapOptions}
           bootstrapURLKeys={{ key: 'AIzaSyCJN8mAbhC7hIpg6Qd8CtjNOrgmlQWvRQE' }}
@@ -37,8 +33,6 @@ createMapOptions (maps) {
         >
          
           {filteringLocation.map((location) => (<Marker
-
-
            location={location}
            lat={location.position.lat}
             lng={location.position.lng}
@@ -46,10 +40,7 @@ createMapOptions (maps) {
             activeLocation={activeLocation}
             selectionLocation={selectionLocation}
           />
-
-          
-          ))}
-          
+         ))}
         </GoogleMapReact>
       </div>	)
   }
