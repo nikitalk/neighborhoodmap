@@ -23,7 +23,7 @@ createMapOptions (maps) {
 
   render() {
 
-  	 	const { locationsList, activeLocation, selectionLocation } = this.props;
+  	 	const { activeLocation, selectionLocation, filteringLocation } = this.props;
   	 	
   	 	
   	return (
@@ -36,7 +36,7 @@ createMapOptions (maps) {
           defaultZoom={this.props.zoom}
         >
          
-          {locationsList.map((location) => (<Marker
+          {filteringLocation.map((location) => (<Marker
 
 
            location={location}
