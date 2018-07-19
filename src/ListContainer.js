@@ -4,7 +4,7 @@ class ListContainer extends Component {
 
   render() {
 
-  	const { locationsList, locationInListClicked} = this.props;
+  	const { locationsList, selectionLocation} = this.props;
   	return (
      
         <ul>
@@ -13,7 +13,7 @@ class ListContainer extends Component {
 				*/}
 				{locationsList.map(location =>
 					<li key={location.title}
-					onClick={() => locationInListClicked(location)}>
+					onClick={() => selectionLocation(location)}>
 						{location.title}
 					</li>
 				)}
