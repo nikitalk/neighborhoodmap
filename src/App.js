@@ -8,18 +8,20 @@ class App extends Component {
   state = {
     filteringLocation: locations,
     activeLocation: {},
+    previousLocation: {},
     selected: false
   }
   
-  selectionLocation = (location) => {   
+selectionLocation = (location) => {   
     this.setState({
+      previousLocation: this.state.activeLocation,
       activeLocation: location,
       selected: true
     });
+    this.fetchFourSquare(this.state.activeLocation.idFourSquare)
 }
  
-
-  unselectionLocation = () => {   
+unselectionLocation = () => {   
     this.setState({
       selected: false
     });
@@ -32,36 +34,30 @@ fetchFourSquare(id) {
 }
 
 pushIntoInfo(data) {
-  if (data.response.venue) {
-      const object = data.response.venue
-      const html = `
+  let html = '';
+  const object = data.response.venue
+  document.getElementById(this.state.activeLocation.idFourSquare).classList.add('selectedLocation')
+  if (this.state.previousLocation.idFourSquare !== undefined) document.getElementById(this.state.previousLocation.idFourSquare).classList.remove('selectedLocation')
+  if (object) {
+      
+      html = `
         <img src="${object.bestPhoto.prefix}300x200${object.bestPhoto.suffix}" alt="${object.name}">
         <div style="color: #${object.ratingColor};">${object.rating}</div>
         <div class="#selectedLocation">Address: ${object.location.formattedAddress[0]}</div>
         <div>Likes: ${object.likes.count}</div>
         <a href="${object.canonicalUrl}" target="_blank">Look at this on FourSquare</a>`
-      document.querySelector(`#fs${object.id}`).innerHTML = html
+        document.querySelector(`#info${this.state.activeLocation.idFourSquare}`).innerHTML = html
     } else {
-      alert(`Unable to get information from FourSquare (${data.meta.errorDetail})`)
+        html= `<div> Unable to load information from FourSquare</div>`
+      document.querySelector(`#infos`).innerHTML = html
       }
+        
     }
 
 filteringLocation = (locations) => {
     this.setState({
       filteringLocation: locations
     });
-}
-
-componentDidUpdate(prevState) {
-  if (prevState.activeLocation === this.state.activeLocation) {
-    return false
-  } else {
-    console.log(this.state.activeLocation)
-    if (this.state.selected) 
-    this.fetchFourSquare(this.state.activeLocation.idFourSquare)
-    //document.getElementById(this.state.activeLocation.idFourSquare).classList.add('selectedLocation')
-    
-  }
 }
 
   render() {
@@ -84,6 +80,8 @@ componentDidUpdate(prevState) {
              filteringLocation={this.state.filteringLocation}
              selected={this.state.selected}
             />
+
+          
         </div>
      
     );

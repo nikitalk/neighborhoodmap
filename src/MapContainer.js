@@ -40,8 +40,10 @@ createMapOptions (maps) {
             key={location.title}
             activeLocation={activeLocation}
             selectionLocation={selectionLocation}
+            selected={this.props.selected}
           />
-         ))}
+
+         ))}          
         </GoogleMapReact>
       </div>	)
   }

@@ -45,7 +45,10 @@ if (query) {
 			</ul>
 
       </div>
+
+      <div id="infos"></div>
       </div>
+
       <div className="footer">Footer</div>
     </div>
 

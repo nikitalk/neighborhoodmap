@@ -136,10 +136,13 @@ transition: all .2s ease-in-out;
 
 .info {
 	position:absolute;
-	left: 100px;
-	right:100px;
+	left: 0px;
+	right:0px;
 }
 
+.unvisible {
+	display:none;
+}
 
 @keyframes activemarker {
         0% {

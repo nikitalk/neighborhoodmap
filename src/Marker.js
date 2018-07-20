@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import image from './marker.svg'
-import Info from './Info';
 
 const Title = ({ text }) => <div className="title">{text}</div>;
 
@@ -13,8 +12,8 @@ render () {
 	return (
 		<div>
 		<Title text={location.title} />
-		<img className="marker" src={image} onClick={() => selectionLocation(location)} alt={this.props.key}/>
-		{(activeLocation.title === location.title) && (<Info location={location} />)}
+		<img id={location.idFourSquare} className="marker" src={image} onClick={() => selectionLocation(location)} alt={this.props.key}/>
+		<div id={`info${location.idFourSquare}`} className="info unvisible"></div>
 		</div>		
 		)
 }
