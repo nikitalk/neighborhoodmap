@@ -17,9 +17,10 @@ if (query) {
 		 } else {
 		 	Locations = this.props.locationList
 			 	this.setState({ query : '', showingLocations: Locations })
+
  		 }
    		this.props.filteringLocation(Locations)
-		   		 
+			 	this.props.unselectionLocation()		   		 
     }
 
   render() {
@@ -27,19 +28,27 @@ if (query) {
   	const { query, showingLocations } = this.state
 
   	return (
-     <div>
-     <input type="text" value={query} placeholder="Search"
+     <div className="sidebar">
+     <div className="toplist">
+     <div className="header">Museum Neighborhood Map</div>
+     <div className="list">
+     <input className="filter" type="text" value={query} placeholder="Type here to filter museums"
               onChange={(e) => {this.updateQuery(e.target.value)}}
             />
         <ul>
 			{showingLocations.map(location =>
 					<li key={location.title}
 					onClick={() => this.props.selectionLocation(location)}>
-						{location.title}
+						<span className="ggg">{location.title}</span>
 					</li>
 				)}
 			</ul>
+
+      </div>
+      </div>
+      <div className="footer">Footer</div>
     </div>
+
 		)
   }
 }

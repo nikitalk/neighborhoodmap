@@ -6,30 +6,89 @@ body {
 }
 
 
-.container {
-    background-color: #f3f3f3;
-    height: 100vh;
-    display: grid;
-    grid-gap: 0px;
-    grid-template-columns: auto;
-    grid-template-rows: 10vh auto 5vh;
-    grid-template-areas: "header" "main" "footer";
-
-    overflow: hidden;
-}
-
 .main {
 	display: grid;
-	grid-area: main;
-	grid-template-columns: 30% 70%;
+	grid-template-columns: 40vh auto;
         grid-template-rows: 100%;
-        grid-template-areas: "list map";
-    height: 100%;
+        grid-template-areas: "sidebar map";
+    height: 100vh;
+}
+
+
+@media screen and (orientation: portrait) {
+.main {
+	display: grid;
+	grid-template-columns: auto;
+        grid-template-rows: 60% 40%;
+        grid-template-areas: "map"
+        "sidebar";
+    height: 100vh;
+}
+
+body {
+	overflow-y: scroll;
+}
+}
+
+.title {
+	width:100px;
+	margin-left: -40px;
+	
+	text-align: center;
+}
+
+.sidebar {
+		grid-area: sidebar;
+display:grid;
+	margin: 0;
+	align-content: space-between;
+	background-color: #F90;
 }
 
 .list {
-		grid-area: list;
+	background-color: #F90;
+color: #fff;
 
+}
+
+
+.toplist {
+
+}
+
+.list ul {
+	margin:0;
+	padding:0;
+}
+
+.list li {
+	list-style-type: none;
+	min-height: 7vh;
+	border-bottom: 1px solid #fff;
+	cursor: pointer;
+	margin:0;
+	text-align: center;
+	display: grid;
+}
+
+.list li:hover {
+	background-color: #F70;
+}
+
+.ggg {
+	align-items: center;
+  align-self: center;
+  justify-self: center;
+
+}
+
+.filter {
+	width: 100%;
+	border: 0;
+	margin:0;
+	height: 7vh;
+	font-size: 2.5vh;
+	text-align: center;
 }
 
 .map {
@@ -42,15 +101,37 @@ body {
 }
 
 .header {
-		grid-area: header;
+	background-color: #F90;
+	height: 5vh;
+	margin: 0;
+	padding-top: 2vh;
+	color: #fff;
+	width: 100%;
+	text-align: center;
+	border-bottom: 1px solid #fff;
 }
 
 .footer {
-		grid-area: footer;
+	background-color: #F90;
+	height: 5vh;
+	margin: 0;
+	padding-top: 2vh;
+	color: #fff;
+	width: 100%;
+	text-align: center;
+	border-top: 1px solid #fff;
+
 }
+
 
 .marker {
 	cursor: pointer;
+transition: all .2s ease-in-out;
+}
+
+.marker:hover {
+	transform: scale(1.5);
+
 }
 
 .info {
@@ -58,3 +139,23 @@ body {
 	left: 100px;
 	right:100px;
 }
+
+
+@keyframes activemarker {
+        0% {
+            transform: scale(1.0);
+            -webkit-transform: scale(1.0);
+        }
+        100% {
+            transform: scale(1.7);
+            -webkit-transform: scale(1.7);
+        }
+    }
+
+    .selectedLocation {
+        animation: activemarker 1s ease-in-out infinite alternate;
+        -webkit-animation: activemarker 1s ease-in-out infinite alternate;
+    }
+
+
+
