@@ -15,20 +15,6 @@ body {
 }
 
 
-@media screen and (orientation: portrait) {
-.main {
-	display: grid;
-	grid-template-columns: auto;
-        grid-template-rows: 60% 40%;
-        grid-template-areas: "map"
-        "sidebar";
-    height: 100vh;
-}
-
-body {
-	overflow-y: scroll;
-}
-}
 
 .title {
 	width:100px;
@@ -43,6 +29,7 @@ display:grid;
 	margin: 0;
 	align-content: space-between;
 	background-color: #F90;
+
 }
 
 .list {
@@ -69,13 +56,16 @@ color: #fff;
 	margin:0;
 	text-align: center;
 	display: grid;
+		font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 2.5vh;
+	text-shadow: 1px 1px 5px rgba(150, 150, 150, 1);
 }
 
 .list li:hover {
 	background-color: #F70;
 }
 
-.ggg {
+.locationtitle {
 	align-items: center;
   align-self: center;
   justify-self: center;
@@ -89,6 +79,7 @@ color: #fff;
 	height: 7vh;
 	font-size: 2.5vh;
 	text-align: center;
+	font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .map {
@@ -102,27 +93,35 @@ color: #fff;
 
 .header {
 	background-color: #F90;
-	height: 5vh;
+	height: 7vh;
 	margin: 0;
-	padding-top: 2vh;
+	
 	color: #fff;
 	width: 100%;
 	text-align: center;
 	border-bottom: 1px solid #fff;
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 3.5vh;
+	line-height: 7vh;
+text-shadow: 1px 1px 5px rgba(150, 150, 150, 1);
 }
 
 .footer {
 	background-color: #F90;
-	height: 5vh;
+	height: 7vh;
 	margin: 0;
-	padding-top: 2vh;
+
 	color: #fff;
 	width: 100%;
 	text-align: center;
 	border-top: 1px solid #fff;
-
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 2.5vh;
+	line-height: 7vh;
+text-shadow: 1px 1px 5px rgba(150, 150, 150, 1);
 }
 
+.footer a {color:#fff;}
 
 .marker {
 	cursor: pointer;
@@ -136,8 +135,18 @@ transition: all .2s ease-in-out;
 
 .info {
 	position:absolute;
-	left: 0px;
-	right:0px;
+	left: 30px;
+	top: 10px;
+
+	padding: 5px;
+	background-color: #fff;
+	z-index:1000;
+	-webkit-box-shadow: -1px 7px 32px -2px rgba(0,0,0,0.75);
+-moz-box-shadow: -1px 7px 32px -2px rgba(0,0,0,0.75);
+box-shadow: -1px 7px 32px -2px rgba(0,0,0,0.75);
+
+font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 2.5vh;
 }
 
 .unvisible {
@@ -162,3 +171,27 @@ transition: all .2s ease-in-out;
 
 
 
+
+
+@media screen and (orientation: portrait) {
+.main {
+	display: grid;
+	grid-template-columns: auto;
+        grid-template-rows: 60% 40%;
+        grid-template-areas: "map"
+        "sidebar";
+    height: 100vh;
+}
+
+body {
+	overflow-y: scroll;
+
+}
+
+.info {
+	position:fixed;
+	left: -150px;
+	top: -150px;
+}
+
+}

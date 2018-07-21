@@ -7,12 +7,12 @@ class Marker extends Component {
 
 render () {
 
-	const { location, activeLocation, selectionLocation} = this.props;
+	const { location, selectionLocation} = this.props;
 	
 	return (
-		<div>
+		<div >
 		<Title text={location.title} />
-		<img id={location.idFourSquare} className="marker" src={image} onClick={() => selectionLocation(location)} alt={this.props.key}/>
+		<img id={location.idFourSquare} tabindex="0" className="marker" src={image} onClick={() => selectionLocation(location)} onKeyPress={() => selectionLocation(location)} alt={location.title}/>
 		<div id={`info${location.idFourSquare}`} className="info unvisible"></div>
 		</div>		
 		)

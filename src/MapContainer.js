@@ -20,17 +20,16 @@ createMapOptions (maps) {
   }
 
   render() {
-  	 	const { activeLocation, selectionLocation, filteringLocation, unselectionLocation} = this.props;
+  	 	const { selectionLocation, filteringLocation, unselectionLocation} = this.props;
   	 	 	
   	return (
 
-	<div className="map" style={{ height: '100%', width: '100%' }}>
+	<div className="map" style={{ height: '100%', width: '100%' }} onClick={(e) => unselectionLocation(e.target)}>
         <GoogleMapReact
         	options={this.createMapOptions}
           bootstrapURLKeys={{ key: 'AIzaSyCJN8mAbhC7hIpg6Qd8CtjNOrgmlQWvRQE' }}
           defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-          onClick={unselectionLocation}     
+          defaultZoom={this.props.zoom}               
         >
          
           {filteringLocation.map((location) => (<Marker
@@ -38,9 +37,7 @@ createMapOptions (maps) {
            lat={location.position.lat}
             lng={location.position.lng}
             key={location.title}
-            activeLocation={activeLocation}
             selectionLocation={selectionLocation}
-            selected={this.props.selected}
           />
 
          ))}          

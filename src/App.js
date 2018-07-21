@@ -2,37 +2,60 @@ import React, { Component } from 'react';
 import './App.css';
 import ListContainer from './ListContainer';
 import MapContainer from './MapContainer';
-import locations from "./Locations";
+
+const locations = require("./Locations.json")
 
 class App extends Component {
   state = {
     filteringLocation: locations,
     activeLocation: {},
-    previousLocation: {},
     selected: false
   }
   
 selectionLocation = (location) => {   
-    this.setState({
-      previousLocation: this.state.activeLocation,
+      
+if (this.state.activeLocation.idFourSquare !== undefined) {
+    const q=document.getElementById(this.state.activeLocation.idFourSquare)
+    if (q) q.classList.remove('selectedLocation')
+    const q2=document.getElementById(`info${this.state.activeLocation.idFourSquare}`)
+    if (q2) q2.classList.add('unvisible')
+  }
+
+    document.getElementById(location.idFourSquare).classList.add('selectedLocation')
+  document.getElementById(`info${location.idFourSquare}`).classList.remove('unvisible')
+    
+      this.setState({
       activeLocation: location,
       selected: true
     });
-    
-    this.fetchFourSquare(location.idFourSquare)
+
+     this.fetchFourSquare(location.idFourSquare)
 }
  
-unselectionLocation = () => {   
+unselectionLocation = (d) => {   
+if (d)
+if (d.tagName !== "IMG") {
+  if (this.state.activeLocation.idFourSquare !== undefined) {
+    const q=document.getElementById(this.state.activeLocation.idFourSquare)
+    if (q) q.classList.remove('selectedLocation')
+    const q2=document.getElementById(`info${this.state.activeLocation.idFourSquare}`)
+    if (q2) q2.classList.add('unvisible')
+  }
     this.setState({
+      activeLocation: {},
       selected: false
     });
+  }
 }
+
+
 
 fetchFourSquare(id) {
   fetch(`https://api.foursquare.com/v2/venues/${id}?client_id=5P0VNDSS1SVTAXPLHKA4SQDFASHIE1BHNAKMVAKYOEADYMGS&client_secret=AUBY2AHOWPOUMUAIDWNPAMUAZVAQO3BPFJBRRIBQE5GIA50Q&v=20180323`)
     .then(res => res.json())
     .then(data => this.pushIntoInfo(data))
-     .catch(err => alert(`Unable to get data from FourSquare (${err})`))
+     .catch(err => {alert(`Unable to get data from FourSquare (${err})`)
+   })
 }
 
 pushIntoInfo(data) {
@@ -41,24 +64,25 @@ pushIntoInfo(data) {
 
     const object = data.response.venue
 
-  document.getElementById(this.state.activeLocation.idFourSquare).classList.add('selectedLocation')
-  if (this.state.previousLocation.idFourSquare !== undefined) {
-    document.getElementById(this.state.previousLocation.idFourSquare).classList.remove('selectedLocation')
-    document.querySelector(`#info${this.state.previousLocation.idFourSquare}`).classList.add('unvisible')
-  }
+    let rating = 'there is no information'
+    if (object.rating !== undefined) rating = object.rating
       const html = `
-        <img src="${object.bestPhoto.prefix}300x200${object.bestPhoto.suffix}" alt="${object.name}">
-        <div style="color: #${object.ratingColor};">${object.rating}</div>
-        <div class="#selectedLocation">Address: ${object.location.formattedAddress[0]}</div>
-        <div>Likes: ${object.likes.count}</div>
+        <img src="${object.bestPhoto.prefix}300x200${object.bestPhoto.suffix}" alt="${object.name}" tabindex="0">
+        <div style="color: #${object.ratingColor};" tabindex="0"><b>Rating:</b> ${rating}</div>
+        <div class="#selectedLocation" tabindex="0"><b>Address:</b> ${object.location.formattedAddress[0]}</div>
+        <div tabindex="0"><b>Likes:</b> ${object.likes.count}</div>
         <a href="${object.canonicalUrl}" target="_blank">Look at this on FourSquare</a>`
-        document.querySelector(`#info${this.state.activeLocation.idFourSquare}`).innerHTML = html
-        document.querySelector(`#info${this.state.activeLocation.idFourSquare}`).classList.remove('unvisible')
+        document.getElementById(`info${object.id}`).innerHTML = html
+        document.getElementById(`infos`).classList.add('unvisible')
+   
     } else {
         const html = `<div> Unable to load information from FourSquare (${data.meta.errorDetail})</div>`
       document.querySelector(`#infos`).innerHTML = html
+      document.getElementById(`infos`).classList.remove('unvisible')
         
       }
+
+
         
     }
 
@@ -82,11 +106,9 @@ filteringLocation = (locations) => {
           />
                   
           <MapContainer 
-            activeLocation={this.state.activeLocation}  
-                     unselectionLocation={this.unselectionLocation}        
-            selectionLocation={this.selectionLocation}
+             selectionLocation={this.selectionLocation}
              filteringLocation={this.state.filteringLocation}
-             selected={this.state.selected}
+                       unselectionLocation={this.unselectionLocation}
             />
 
           
