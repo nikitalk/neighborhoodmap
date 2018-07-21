@@ -21,16 +21,16 @@ class MapContainer extends Component {
 
   render() {
     const {
-      selectionLocation,
-      filteringLocation,
-      unselectionLocation
+      onSelectLocation,
+      filteredLocation,
+      onUnselectLocation
     } = this.props;
 
     return (
       <div
         className="map"
         style={{ height: "100%", width: "100%" }}
-        onClick={e => unselectionLocation(e.target)}
+        onClick={e => onUnselectLocation(e.target)}
       >
         <GoogleMapReact
           options={this.createMapOptions}
@@ -38,13 +38,13 @@ class MapContainer extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          {filteringLocation.map(location => (
+          {filteredLocation.map(location => (
             <Marker
               location={location}
               lat={location.position.lat}
               lng={location.position.lng}
               key={location.title}
-              selectionLocation={selectionLocation}
+              onSelectLocation={onSelectLocation}
             />
           ))}
         </GoogleMapReact>

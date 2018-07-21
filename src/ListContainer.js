@@ -4,7 +4,7 @@ import escapeRegExp from "escape-string-regexp";
 class ListContainer extends Component {
   state = {
     query: "",
-    showingLocations: this.props.locationList
+    showedLocations: this.props.locationList
   };
 
   updateQuery = query => {
@@ -14,17 +14,17 @@ class ListContainer extends Component {
       Locations = this.props.locationList.filter(location =>
         match.test(location.title)
       );
-      this.setState({ query: query, showingLocations: Locations });
+      this.setState({ query: query, showedLocations: Locations });
     } else {
       Locations = this.props.locationList;
-      this.setState({ query: "", showingLocations: Locations });
+      this.setState({ query: "", showedLocations: Locations });
     }
-    this.props.filteringLocation(Locations);
-    this.props.unselectionLocation();
+    this.props.onFilterLocation(Locations);
+    this.props.onUnselectLocation();
   };
 
   render() {
-    const { query, showingLocations } = this.state;
+    const { query, showedLocations } = this.state;
 
     return (
       <div
@@ -45,11 +45,11 @@ class ListContainer extends Component {
               aria-label="Type here to filter museums"
             />
             <ul>
-              {showingLocations.map(location => (
+              {showedLocations.map(location => (
                 <li
                   key={location.title}
-                  onClick={() => this.props.selectionLocation(location)}
-                  onKeyPress={() => this.props.selectionLocation(location)}
+                  onClick={() => this.props.onSelectLocation(location)}
+                  onKeyPress={() => this.props.onSelectLocation(location)}
                   tabindex="0"
                 >
                   <span className="locationtitle">{location.title}</span>

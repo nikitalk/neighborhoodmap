@@ -5,7 +5,7 @@ const Title = ({ text }) => <div className="title">{text}</div>;
 
 class Marker extends Component {
   render() {
-    const { location, selectionLocation } = this.props;
+    const { location, onSelectLocation } = this.props;
 
     return (
       <div>
@@ -15,8 +15,8 @@ class Marker extends Component {
           tabindex="0"
           className="marker"
           src={image}
-          onClick={() => selectionLocation(location)}
-          onKeyPress={() => selectionLocation(location)}
+          onClick={() => onSelectLocation(location)}
+          onKeyPress={() => onSelectLocation(location)}
           alt={location.title}
         />
         <div id={`info${location.idFourSquare}`} className="info unvisible" />

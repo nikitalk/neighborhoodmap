@@ -7,25 +7,35 @@ const locations = require("./Locations.json");
 
 class App extends Component {
   state = {
-    filteringLocation: locations,
+    filteredLocation: locations,
     activeLocation: {},
     selected: false
   };
 
+
+/**
+ * Function for changing marker to unselected mode
+ */
   removeClassFromMarker = () => {
     const marker = document.getElementById(this.state.activeLocation.idFourSquare);
     if (marker) marker.classList.remove("selectedLocation");
   }
 
-  removeClassFromInfoWindow = () => {
+/**
+ * Function for hiding Museum Information Window
+ */
+  addClassFromInfoWindow = () => {
     const info = document.getElementById(`info${this.state.activeLocation.idFourSquare}`);
     if (info) info.classList.add("unvisible");
   }
 
-  selectionLocation = location => {
+/**
+ * Function for state of selected location
+ */
+  selectLocation = location => {
     if (this.state.activeLocation.idFourSquare !== undefined) {
       this.removeClassFromMarker();
-      this.removeClassFromInfoWindow();      
+      this.addClassFromInfoWindow();      
     }
 
     document.getElementById(location.idFourSquare).classList.add("selectedLocation");
@@ -39,12 +49,15 @@ class App extends Component {
     this.fetchFourSquare(location.idFourSquare);
   };
 
-  unselectionLocation = object => {
+/**
+ * Function for state of unselected location
+ */
+  unselectLocation = object => {
     if (object)
       if (object.tagName !== "IMG") {
         if (this.state.activeLocation.idFourSquare !== undefined) {
           this.removeClassFromMarker();
-          this.removeClassFromInfoWindow();   
+          this.addClassFromInfoWindow();   
         }
         this.setState({
           activeLocation: {},
@@ -53,6 +66,18 @@ class App extends Component {
       }
   };
 
+/**
+ * Function for changing of state for filtering locations
+ */
+  filterLocation = locations => {
+    this.setState({
+      filteredLocation: locations
+    });
+  };
+
+/**
+ * Function for fetching information from FourSquare
+ */
   fetchFourSquare(id) {
     fetch(`https://api.foursquare.com/v2/venues/${id}?client_id=5P0VNDSS1SVTAXPLHKA4SQDFASHIE1BHNAKMVAKYOEADYMGS&client_secret=AUBY2AHOWPOUMUAIDWNPAMUAZVAQO3BPFJBRRIBQE5GIA50Q&v=20180323`)
       .then(res => res.json())
@@ -62,6 +87,10 @@ class App extends Component {
       });
   }
 
+
+/**
+ * Function for pushing fetched information to Museum Info Window
+ */  
   pushIntoInfo(data) {
     if (data.response.venue) {
       const object = data.response.venue;
@@ -93,28 +122,21 @@ class App extends Component {
     }
   }
 
-  filteringLocation = locations => {
-    this.setState({
-      filteringLocation: locations
-    });
-  };
-
   render() {
     return (
       <div className="main">
         <ListContainer
-          className="list"
           locationList={locations}
-          unselectionLocation={this.unselectionLocation}
-          selectionLocation={this.selectionLocation}
-          filteringLocation={this.filteringLocation}
+          onUnselectLocation={this.unselectLocation}
+          onSelectLocation={this.selectLocation}
+          onFilterLocation={this.filterLocation}
           selected={this.state.selected}
         />
 
         <MapContainer
-          selectionLocation={this.selectionLocation}
-          filteringLocation={this.state.filteringLocation}
-          unselectionLocation={this.unselectionLocation}
+          onSelectLocation={this.selectLocation}
+          filteredLocation={this.state.filteredLocation}
+          onUnselectLocation={this.unselectLocation}
         />
       </div>
     );
